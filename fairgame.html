@@ -1,296 +1,41 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Fairgame</title>
-    <style>
-      canvas {
-        background: #6200ff;
-        display: block;
-        margin: 0 auto;
-      }
-      #startScreen {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        font-size: 24px;
-        color: white;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="startScreen">
-      <h1>Click Smiley to Start</h1>
-      <h2>WASD to move and SPACE to shoot</h2>
-      <img src="smiley.png" onclick="startGame();" />
+<h1 class="won">FAIRGAME</h1>
+<div class="hard">
+    
+    <li><a href="fairgameeasy.html">easy mode</a></li>
+    <li><a href="fairgamemid.html">Medium mode</a></li>
+    <div>
+        
+        
+        <a href="https://github.com/Ralfnl12">Github</a>
+
+
     </div>
-    <canvas id="gameCanvas" width="1460" height="700"></canvas>
-    <script>
-      const canvas = document.getElementById("gameCanvas");
-      const ctx = canvas.getContext("2d");
 
-      let player = {
-        x: 900,
-        y: 100,
-        width: 50,
-        height: 40,
-        speed: 5,
-        image: new Image(),
-      };
 
-      let objective = {
-        x: 50,
-        y: 200,
-        width: 200,
-        height: 200,
-        image: new Image(),
-        shootRate: (Math.random() * 399),
-      };
-      let wingame = {
-        x: 500,
-        y: 200,
-        image: new Image(),
-        width: 150,
-        height: 150,
-      };
+</div>
 
-      let score = 0;
-      let keys = {};
-      let canShoot = true;
-      let projectiles = [];
-      let enemyProjectiles = [];
-      let enemyscore = 3;
 
-      player.image.src = "tank.png";
-      objective.image.src = "mad.png";
-      function drawPlayer() {
-        ctx.drawImage(
-          player.image,
-          player.x,
-          player.y,
-          player.width,
-          player.height
-        );
-      }
-
-      function drawwin() {
-        window.location.href = "win.html";
-      }
-
-      function drawloser() {
-        window.location.href = "loser.html";
-      }
-
-      function drawObjective() {
-        ctx.drawImage(
-          objective.image,
-          objective.x,
-          objective.y,
-          objective.width,
-          objective.height
-        );
-      }
-
-      function drawScore() {
-        ctx.font = "18px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("Score: " + score, 10, 20);
-      }
-      function drawlives() {
-        ctx.font = "18px arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("Lives:" + enemyscore, 100, 20);
-        ctx.x = "100";
-      }
-
-      function updateGame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawObjective();
-        drawPlayer();
-        drawProjectiles();
-        drawEnemyProjectiles();
-        checkCollision();
-        checkEnemyCollision();
-        drawScore();
-        drawlives();
-      }
-
-      function checkBoundary() {
-        if (player.x < 0) player.x = 0;
-        if (player.x + player.width > canvas.width)
-          player.x = canvas.width - player.width;
-        if (player.y < 0) player.y = 0;
-        if (player.y + player.height > canvas.height)
-          player.y = canvas.height - player.height;
-      }
-
-      document.addEventListener("keydown", (event) => {
-        keys[event.key] = true;
-
-        if (event.code === "Space" && canShoot) {
-          shoot();
-          canShoot = false;
-          setTimeout(() => {
-            canShoot = true;
-          }, 150);
-        }
-      });
-
-      document.addEventListener("keyup", (event) => {
-        keys[event.key] = false;
-      });
-
-      function handleKeyInput() {
-        if (keys["d"]) moveRight();
-        if (keys["a"]) moveLeft();
-        if (keys["w"]) moveUp();
-        if (keys["s"]) moveDown();
-      }
-
-      function startGame() {
-        document.getElementById("startScreen").style.display = "none";
-        canvas.style.display = "block";
-        gameLoop();
-        startEnemyShooting();
-      }
-
-      function shoot() {
-        let projectile = {
-          x: player.x + player.width / 4,
-          y: player.y + player.height / 4,
-          width: 10,
-          height: 5,
-          speed: 7,
-        };
-        projectiles.push(projectile);
-      }
-
-      function drawProjectiles() {
-        ctx.fillStyle = "yellow";
-        projectiles.forEach((projectile, index, object) => {
-          projectile.x -= projectile.speed;
-          ctx.fillRect(
-            projectile.x,
-            projectile.y,
-            projectile.width,
-            projectile.height
-          );
-
-          if (projectile.x > canvas.width) {
-            object.splice(index, 1);
-          }
-        });
-      }
-
-      function moveRight() {
-        checkBoundary();
-        player.x += player.speed;
-        checkBoundary();
-      }
-
-      function moveLeft() {
-        checkBoundary();
-        player.x -= player.speed;
-        checkBoundary();
-      }
-
-      function moveUp() {
-        checkBoundary();
-        player.y -= player.speed;
-        checkBoundary();
-      }
-
-      function moveDown() {
-        checkBoundary();
-        player.y += player.speed;
-        checkBoundary();
-      }
-
-      function checkCollision() {
-        projectiles.forEach((projectile, index) => {
-          if (
-            projectile.x < objective.x + objective.width &&
-            projectile.x + projectile.width > objective.x &&
-            projectile.y < objective.y + objective.height &&
-            projectile.y + projectile.height > objective.y
-          ) {
-            projectiles.splice(index, 1);
-            score++;
-            console.log("Collision! Score: " + score);
-          }
-          if (
-              score == 100 &&
-              enemyscore >= 1
-              ) {
-              drawwin();
-              console.log("WIN");
-            }
-            
-        });
-      }
-
-      function startEnemyShooting() {
-        setInterval(() => {
-          enemyShoot();
-        }, objective.shootRate);
-      }
-
-      function enemyShoot() {
-        let enemyProjectile = {
-          x: objective.x + 30,
-          y: (Math.random() * 900),
-          width: 50,
-          height: (Math.random() * 200) + 10,
-          speed: (Math.random() * 20) + 1,
-        };
-        enemyProjectiles.push(enemyProjectile);
-      }
-
-      function drawEnemyProjectiles() {
-        ctx.fillStyle = "red";
-        enemyProjectiles.forEach((projectile, index, object) => {
-          projectile.x += projectile.speed;
-          ctx.fillRect(
-            projectile.x,
-            projectile.y,
-            projectile.width,
-            projectile.height
-          );
-
-          if (projectile.x + projectile.width < 0) {
-            object.splice(index, 1);
-          }
-        });
-      }
-
-      function checkEnemyCollision() {
-        enemyProjectiles.forEach((projectile, index) => {
-          if (
-            projectile.x < player.x + player.width &&
-            projectile.x + projectile.width > player.x &&
-            projectile.y < player.y + player.height &&
-            projectile.y + projectile.height > player.y
-          ) {
-            enemyProjectiles.splice(index, 1);
-            enemyscore--;
-            console.log("collision! score: " + enemyscore);
-          }
-          if (
-            enemyscore == 0
-          ){
-            drawloser()
-            console.log("loser")
-          }
-        });
-      }
-
-      function gameLoop() {
-        handleKeyInput();
-        checkBoundary();
-        updateGame();
-        requestAnimationFrame(gameLoop);
-      }
-    </script>
-  </body>
-</html>
+<style>
+    .content {
+        background-color: black;
+    }
+    
+    .won {
+        align-content: center;
+        align-self: center;
+        text-align: center;
+    
+    }
+    .hard {
+           align-content: center;
+           align-self: center;
+           text-align: center;
+           align-self: center;
+    
+    }
+    
+    
+    
+    
+    </style>
