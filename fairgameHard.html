@@ -246,6 +246,11 @@
         };
         enemyProjectiles.push(enemyProjectile);
       }
+      function stopcheats() {
+        if (enemylive > 3) {
+        enemylives = 0;
+}
+      }
 
       function drawEnemyProjectiles() {
         ctx.fillStyle = "red";
@@ -290,6 +295,7 @@
         checkBoundary();
         updateGame();
         requestAnimationFrame(gameLoop);
+        stopcheats();
       }
     </script>
   </body>

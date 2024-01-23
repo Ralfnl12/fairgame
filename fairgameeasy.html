@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Fairgame</title>
+    <title>Fairgame Easy</title>
     <style>
       canvas {
         background: #6200ff;
@@ -284,12 +284,18 @@
           }
         });
       }
+      function stopcheats() {
+        if (enemylive > 3) {
+        enemylives = 0;
+}
+      }
 
       function gameLoop() {
         handleKeyInput();
         checkBoundary();
         updateGame();
         requestAnimationFrame(gameLoop);
+        stopcheats();
       }
     </script>
   </body>
