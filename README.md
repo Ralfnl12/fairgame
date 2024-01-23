@@ -1,0 +1,2 @@
+# fairgame
+ofc no bullethell
