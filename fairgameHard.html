@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Fairgame</title>
+    <title>Fairgame HARD MODE</title>
     <style>
       canvas {
         background: #6200ff;
@@ -22,7 +22,7 @@
   <body>
     <div id="startScreen">
       <h1>Click Smiley to Start</h1>
-      <h2>WASD to move and space to shoot</h2>
+      <h2> WASD to move and space to shoot</h2>
       <img src="smiley.png" onclick="startGame();" />
     </div>
     <canvas id="gameCanvas" width="1460" height="700"></canvas>
@@ -45,7 +45,7 @@
         width: 200,
         height: 200,
         image: new Image(),
-        shootRate: (Math.random() * 399),
+        shootRate: (Math.random() * 50),
       };
       let wingame = {
         x: 500,
