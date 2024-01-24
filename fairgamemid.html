@@ -57,6 +57,7 @@
 
       let score = 0;
       let keys = {};
+      let shots = 0;
       let canShoot = true;
       let projectiles = [];
       let enemyProjectiles = [];
@@ -214,7 +215,7 @@
       function stopcheats() {
         if (enemyscore > 3) {
         enemyscore = 0;}
-        if (shots << score){drawloser}
+        if (shots << score){drawloser()}
       }
 
 
