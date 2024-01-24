@@ -57,6 +57,7 @@
 
       let score = 0;
       let shots = 0;
+      let swada2e21sawegafwlafn = 0;
       let keys = {};
       let canShoot = true;
       let projectiles = [];
@@ -170,6 +171,7 @@
         };
         projectiles.push(projectile);
         shots++;
+        swada2e21sawegafwlafn++;
       }
 
       function drawProjectiles() {
@@ -228,7 +230,8 @@
           if (
               score >= 100 &&
               enemyscore >= 1 &&
-              shots >= score
+              shots >= score &&
+              shots == swada2e21sawegafwlafn
 
               ) {
               drawwin();
@@ -295,6 +298,8 @@
       function stopcheats() {
         if (enemyscore > 3) {
         drawloser}
+        if (shots < swada2e21sawegafwlafn) {drawloser()} 
+        if (shots > swada2e21sawegafwlafn) {drawloser()} 
 
       }
 
