@@ -168,6 +168,7 @@
           speed: 7,
         };
         projectiles.push(projectile);
+        shots++;
       }
 
       function drawProjectiles() {
@@ -213,7 +214,9 @@
       function stopcheats() {
         if (enemyscore > 3) {
         enemyscore = 0;}
+        if (shots << score){drawloser}
       }
+
 
       function checkCollision() {
         projectiles.forEach((projectile, index) => {
@@ -228,7 +231,7 @@
             console.log("Collision! Score: " + score);
           }
           if (
-              score == 100 &&
+              score >= 100 &&
               enemyscore >= 1
               ) {
               drawwin();

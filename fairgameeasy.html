@@ -56,6 +56,7 @@
       };
 
       let score = 0;
+      let shots = 0;
       let keys = {};
       let canShoot = true;
       let projectiles = [];
@@ -168,6 +169,7 @@
           speed: 7,
         };
         projectiles.push(projectile);
+        shots++;
       }
 
       function drawProjectiles() {
@@ -224,8 +226,10 @@
             console.log("Collision! Score: " + score);
           }
           if (
-              score == 100 &&
-              enemyscore >= 1
+              score >= 100 &&
+              enemyscore >= 1 &&
+              shots >= score
+
               ) {
               drawwin();
               console.log("WIN");
@@ -290,8 +294,8 @@
       }
       function stopcheats() {
         if (enemyscore > 3) {
-        enemyscore = 0;
-}
+        drawloser}
+        if (shots << score){drawloser}
       }
 
       function gameLoop() {
