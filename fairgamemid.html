@@ -153,6 +153,10 @@
         canvas.style.display = "block";
         gameLoop();
         startEnemyShooting();
+        if (score == 100) {
+          enemyscore = 0
+          score = 0
+        }
       }
 
       function shoot() {
@@ -208,8 +212,7 @@
       }
       function stopcheats() {
         if (enemyscore > 3) {
-        enemyscore = 0;
-}
+        enemyscore = 0;}
       }
 
       function checkCollision() {
@@ -289,7 +292,7 @@
           }
         });
       }
-
+      
       function gameLoop() {
         handleKeyInput();
         checkBoundary();

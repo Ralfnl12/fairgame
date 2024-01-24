@@ -153,6 +153,10 @@
         canvas.style.display = "block";
         gameLoop();
         startEnemyShooting();
+        if (score == 100) {
+          enemyscore = 0
+          score = 0
+        }
       }
 
       function shoot() {
